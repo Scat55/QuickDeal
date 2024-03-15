@@ -11,7 +11,13 @@ defineProps<Props>();
 
 <template>
   <div>
-    <input class="input" :type="type" :value="value" :name="name" :placeholder="placeholder" />
+    <input
+      class="input"
+      :type="type"
+      :value="value"
+      :name="name"
+      :placeholder="placeholder"
+    />
   </div>
 </template>
 
