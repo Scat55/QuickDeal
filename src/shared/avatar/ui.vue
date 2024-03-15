@@ -8,7 +8,7 @@ const { img } = defineProps<Props>();
 
 <template>
   <div class="avatar">
-    <img :src="img" alt="Avatar for user" />
+    <img :src="img" alt="Avatar for user" class="avatar__img" />
   </div>
 </template>
 
@@ -18,5 +18,13 @@ const { img } = defineProps<Props>();
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  &__img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+</style>

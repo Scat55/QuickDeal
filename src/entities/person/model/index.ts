@@ -1,1 +1,1 @@
-export { usePersonStore } from '@/app/stores/counter';
+export { usePersonStore } from '@/app/stores/person';
