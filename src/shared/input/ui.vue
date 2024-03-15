@@ -1,11 +1,14 @@
 <script setup lang="ts">
 interface Props {
   type: string;
-  value?: string;
+  value?: string | number;
   name?: string;
   placeholder?: string;
 }
-
+const emit = defineEmits(['update:value']);
+const updateValue = (e: any) => {
+  emit('update:value', (e.target as HTMLInputElement).value);
+};
 defineProps<Props>();
 </script>
 
@@ -17,6 +20,7 @@ defineProps<Props>();
       :value="value"
       :name="name"
       :placeholder="placeholder"
+      @input="updateValue"
     />
   </div>
 </template>
