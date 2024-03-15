@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { Input } from '@/shared/input';
-import { Container } from '@/shared/container';
+import Header from '@/widgets/header/index.vue';
 </script>
 
 <template>
-  <header class="header">
-    <Container>
-      <Input type="text" placeholder="id пользователя" />
-    </Container>
-  </header>
+  <main>
+    <Header />
+  </main>
 </template>
 
 <style scoped></style>
