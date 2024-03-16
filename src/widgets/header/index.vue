@@ -4,8 +4,19 @@ import { Avatar } from '@/shared/avatar';
 import { computed } from 'vue';
 import { usePersonStore } from '@/entities/person';
 
+interface Links {
+  name: string;
+  value: string;
+}
+
 const personStore = usePersonStore();
 const person = computed(() => personStore.person);
+
+const links: Links[] = [
+  { name: 'Главная', value: '/' },
+  { name: 'Товары', value: 'Products' },
+  { name: 'Корзина', value: 'Cart' },
+];
 </script>
 
 <template>
@@ -13,7 +24,13 @@ const person = computed(() => personStore.person);
     <div class="header__content">
       <Container>
         <div class="header__content-logo">
-          <p>Logo</p>
+          <nav class="header__content-logo-links">
+            <p v-for="link in links">
+              <RouterLink class="link" :to="link.value">{{
+                link.name
+              }}</RouterLink>
+            </p>
+          </nav>
           <div class="header__content-logo-user" v-if="personStore.isAuth">
             <Avatar :img="person.avatar" />
             <div class="user__info">
@@ -38,7 +55,12 @@ const person = computed(() => personStore.person);
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+      &-links {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        font-size: 1.2rem;
+      }
       &-user {
         display: flex;
         align-items: center;
