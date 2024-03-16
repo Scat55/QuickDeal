@@ -16,7 +16,10 @@ const person = computed(() => personStore.person);
           <p>Logo</p>
           <div class="header__content-logo-user" v-if="personStore.isAuth">
             <Avatar :img="person.avatar" />
-            <span>{{ person.name }}</span>
+            <div class="user__info">
+              <span>{{ person.name }}</span>
+              <span>{{ person.coins }} &dollar;</span>
+            </div>
           </div>
         </div>
       </Container>
@@ -43,5 +46,9 @@ const person = computed(() => personStore.person);
       }
     }
   }
+}
+.user__info {
+  display: flex;
+  flex-direction: column;
 }
 </style>
