@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { usePersonStore } from '@/entities/person';
 import { Sidebar } from '@/widgets/sidebar';
 import { Button } from '@/shared/button';
+import { userCard } from '@/widgets/userCard';
 
 const personStore = usePersonStore();
 const id = ref<number | undefined>(undefined);
@@ -11,8 +12,10 @@ const balanse = ref<number | undefined>(undefined);
 
 const getInfoAboutPerson = () => {
   if (id.value !== undefined) {
-    personStore.getInfoAboutPerson(id.value);
+    personStore.getInfoAboutPerson(id.value, balanse.value);
+    personStore.person.coins = balanse.value;
     id.value = undefined;
+    balanse.value = undefined;
   }
 };
 </script>
@@ -26,13 +29,15 @@ const getInfoAboutPerson = () => {
         >Показать</Button
       >
     </Sidebar>
+
+    <userCard class="main__userCard" v-if="personStore.isAuth" />
   </main>
 </template>
 
 <style scoped lang="scss">
 .main {
   display: flex;
-
+  gap: 2.5rem;
   &__sidebar {
     display: flex;
     flex-direction: column;
@@ -45,6 +50,10 @@ const getInfoAboutPerson = () => {
       color: white;
       box-shadow: inset 0 -100px 0 0 #725ac1;
     }
+  }
+
+  &__userCard {
+    margin-top: 0.625rem;
   }
 }
 </style>

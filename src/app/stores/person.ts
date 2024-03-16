@@ -4,7 +4,7 @@ import axios from 'axios';
 
 interface Person {
   name: string;
-  coins: number;
+  coins: number | undefined;
   avatar: string;
 }
 
@@ -16,13 +16,14 @@ export const usePersonStore = defineStore('person', () => {
     avatar: '',
   });
 
-  const getInfoAboutPerson = async (id: number) => {
+  const getInfoAboutPerson = async (id: number, coins?: number) => {
     await axios
       .get(`https://api.escuelajs.co/api/v1/users/${id}`)
       .then((res) => {
         isAuth.value = true;
         person.name = res.data.name;
         person.avatar = res.data.avatar;
+        person.coins = coins;
       });
   };
 
