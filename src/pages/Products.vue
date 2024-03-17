@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import { Container } from '@/shared/container';
-// import { useProductsStore } from '@/app/stores/products';
-// import { computed } from 'vue';
+import { productCard } from '@/widgets/productCard';
+import { useProductsStore } from '@/entities/products';
+import { computed } from 'vue';
 
-// const productsStore = useProductsStore();
+const productsStore = useProductsStore();
 
-// const getProducts = () => {
-//   productsStore.getProductsFromApi();
-// };
-// getProducts();
+const getProducts = () => {
+  productsStore.getProductsFromApi();
+};
+getProducts();
 
-// const products = computed(() => productsStore.products);
+const products = computed(() => productsStore.products);
 </script>
 
 <template>
-  <div>
-    <Container>
-      Товары
-      <!-- <div v-for="product in products">
-        {{ product }}
-      </div> -->
-    </Container>
+  <div class="products">
+    <productCard v-for="product in products" :product="product" />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+</style>
