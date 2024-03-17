@@ -12,7 +12,6 @@ const { type } = defineProps<Props>();
 
 <style scoped lang="scss">
 .button {
-  width: 100%;
   height: 2.5rem;
   display: flex;
   align-items: center;
