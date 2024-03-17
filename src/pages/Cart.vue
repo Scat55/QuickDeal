@@ -1,11 +1,65 @@
 <script setup lang="ts">
+import { itemCart } from '@/widgets/itemCart';
+import { computed } from 'vue';
+import { useCartStore } from '@/entities/cart';
 import { Container } from '@/shared/container';
+import { Button } from '@/shared/button';
+
+const cartStore = useCartStore();
+
+const cartItem = computed(() => cartStore.cart);
+
+const getAllSumm = computed(() => {
+  return cartStore.cart.reduce((totalPrice, currentItem) => {
+    return totalPrice + currentItem.price;
+  }, 0);
+});
 </script>
 
 <template>
-  <div>
-    <Container>Корзина</Container>
-  </div>
+  <Container>
+    <div class="cart">
+      <div class="cart__item">
+        <itemCart v-for="cart in cartItem" :cart="cart" />
+      </div>
+      <div class="cart__sum">
+        <p class="cart__sum-info">Итого {{ getAllSumm }} &dollar;</p>
+        <Button class="cart__sum-btn" type="button">Оформить</Button>
+      </div>
+    </div>
+  </Container>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.cart {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2.5rem;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+  &__sum {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    &-info {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    &-btn {
+      background-color: #f3f7fe;
+      color: #3b82f6;
+      border: none;
+      &:hover {
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 5px #3b83f65f;
+        color: #fff;
+      }
+    }
+  }
+}
+</style>
