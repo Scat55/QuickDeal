@@ -15,7 +15,11 @@ const products = computed(() => productsStore.products);
 
 <template>
   <div class="products">
-    <productCard v-for="product in products" :product="product" />
+    <productCard
+      v-for="product in products"
+      :product="product"
+      :key="product.title"
+    />
   </div>
 </template>
 

@@ -2,12 +2,18 @@
 import { type Product } from '@/entities/products';
 import { Container } from '@/shared/container';
 import { Button } from '@/shared/button';
+import { useCartStore, type Cart } from '@/entities/cart';
+
+const cartStore = useCartStore();
 
 interface Props {
   product: Product;
 }
-
 const { product } = defineProps<Props>();
+
+const getProductInCart = (product: Cart) => {
+  cartStore.getProductInCart(product);
+};
 </script>
 
 <template>
@@ -23,7 +29,11 @@ const { product } = defineProps<Props>();
         <p class="card__content-descr">{{ product.description }}</p>
         <div class="card__price">
           <p class="card__price-info">{{ product.price }} &dollar;</p>
-          <Button class="card__price-btn" type="button">
+          <Button
+            class="card__price-btn"
+            type="button"
+            @click="getProductInCart(product)"
+          >
             <span class="IconContainer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
