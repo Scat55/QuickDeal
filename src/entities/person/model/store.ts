@@ -1,12 +1,7 @@
 import { ref, reactive } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
-
-interface Person {
-  name: string;
-  coins: number | undefined;
-  avatar: string;
-}
+import { type Person } from './types';
 
 export const usePersonStore = defineStore('person', () => {
   const isAuth = ref(false);

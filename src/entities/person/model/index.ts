@@ -1,1 +1,2 @@
-export { usePersonStore } from '@/app/stores/person';
+export { usePersonStore } from './store';
+export { type Person } from './types';
