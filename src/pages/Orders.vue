@@ -37,7 +37,9 @@ const returnSumm = () => {
       />
     </div>
     <div class="orders__button">
-      <Button type="button" @click="returnSumm">Отмена</Button>
+      <Button type="button" class="orders__button-btn" @click="returnSumm"
+        >Отмена</Button
+      >
     </div>
   </div>
 </template>
@@ -58,6 +60,16 @@ const returnSumm = () => {
 
   &__button {
     grid-column: 2;
+    &-btn {
+      background-color: #f3f7fe;
+      color: #ed4112;
+      border: none;
+      &:hover {
+        background-color: #d91d0c;
+        box-shadow: 0 0 0 5px #f6763b5f;
+        color: #fff;
+      }
+    }
   }
 }
 </style>
