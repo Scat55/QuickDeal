@@ -2,18 +2,34 @@
 import { itemCart } from '@/widgets/itemCart';
 import { computed } from 'vue';
 import { useCartStore } from '@/entities/cart';
+import { usePersonStore } from '@/entities/person';
 import { Container } from '@/shared/container';
 import { Button } from '@/shared/button';
 
 const cartStore = useCartStore();
-
+const personStore = usePersonStore();
 const cartItem = computed(() => cartStore.cart);
+const person = computed(() => personStore.person);
 
 const getAllSumm = computed(() => {
   return cartStore.cart.reduce((totalPrice, currentItem) => {
     return totalPrice + currentItem.price;
   }, 0);
 });
+
+// Оформлени заказа
+const placeAnOrder = () => {
+  if (
+    !personStore.isAuth ||
+    personStore.person.coins === undefined ||
+    personStore.person.coins < getAllSumm.value
+  ) {
+    alert('Ошибка');
+  } else {
+    cartStore.isOrderActive = true;
+    personStore.person.coins -= getAllSumm.value;
+  }
+};
 </script>
 
 <template>
@@ -24,7 +40,9 @@ const getAllSumm = computed(() => {
       </div>
       <div class="cart__sum">
         <p class="cart__sum-info">Итого {{ getAllSumm }} &dollar;</p>
-        <Button class="cart__sum-btn" type="button">Оформить</Button>
+        <Button class="cart__sum-btn" type="button" @click="placeAnOrder"
+          >Оформить</Button
+        >
       </div>
     </div>
   </Container>

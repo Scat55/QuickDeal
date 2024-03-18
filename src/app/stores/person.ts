@@ -10,7 +10,7 @@ interface Person {
 
 export const usePersonStore = defineStore('person', () => {
   const isAuth = ref(false);
-  const person = reactive<Person>({
+  const person = ref<Person>({
     name: '',
     coins: 0,
     avatar: '',
@@ -21,9 +21,9 @@ export const usePersonStore = defineStore('person', () => {
       .get(`https://api.escuelajs.co/api/v1/users/${id}`)
       .then((res) => {
         isAuth.value = true;
-        person.name = res.data.name;
-        person.avatar = res.data.avatar;
-        person.coins = coins;
+        person.value.name = res.data.name;
+        person.value.avatar = res.data.avatar;
+        person.value.coins = coins;
       });
   };
 
