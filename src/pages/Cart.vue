@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { itemCart } from '@/widgets/itemCart';
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCartStore } from '@/entities/cart';
 import { usePersonStore } from '@/entities/person';
 import { Container } from '@/shared/container';
@@ -9,6 +10,7 @@ import { Button } from '@/shared/button';
 const cartStore = useCartStore();
 const personStore = usePersonStore();
 const cartItem = computed(() => cartStore.cart);
+const router = useRouter();
 
 const getAllSumm = computed(() => {
   return cartStore.cart.reduce((totalPrice, currentItem) => {
@@ -27,6 +29,7 @@ const placeAnOrder = () => {
   } else {
     cartStore.isOrderActive = true;
     personStore.person.coins -= getAllSumm.value;
+    router.push('/Orders');
   }
 };
 </script>
