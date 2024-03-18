@@ -3,9 +3,27 @@ import { orderCard } from '@/widgets/orderCard';
 import { Button } from '@/shared/button';
 import { useCartStore } from '@/entities/cart';
 import { computed } from 'vue';
+import { usePersonStore } from '@/entities/person';
 
 const cartStore = useCartStore();
 const cartItem = computed(() => cartStore.cart);
+
+const personStore = usePersonStore();
+
+const getAllSumm = computed(() => {
+  return cartStore.cart.reduce((totalPrice, currentItem) => {
+    return totalPrice + currentItem.price;
+  }, 0);
+});
+
+const returnSumm = () => {
+  if (personStore.person.coins === undefined) {
+    return;
+  } else {
+    personStore.person.coins += getAllSumm.value;
+    cartStore.cart = [];
+  }
+};
 </script>
 
 <template>
@@ -19,7 +37,7 @@ const cartItem = computed(() => cartStore.cart);
       />
     </div>
     <div class="orders__button">
-      <Button type="button">Отмена</Button>
+      <Button type="button" @click="returnSumm">Отмена</Button>
     </div>
   </div>
 </template>
