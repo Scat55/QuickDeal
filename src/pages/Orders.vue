@@ -2,17 +2,19 @@
 import { orderCard } from '@/widgets/orderCard';
 import { Button } from '@/shared/button';
 import { useCartStore } from '@/entities/cart';
+import { useOrderStore } from '@/entities/order';
 import { computed } from 'vue';
 import { usePersonStore } from '@/entities/person';
 
 const cartStore = useCartStore();
-const cartItem = computed(() => cartStore.cart);
+const orderStore = useOrderStore();
+const orderItem = computed(() => orderStore.orders);
 
 const personStore = usePersonStore();
 
 const getAllSumm = computed(() => {
-  return cartStore.cart.reduce((totalPrice, currentItem) => {
-    return totalPrice + currentItem.price;
+  return orderStore.orders.reduce((totalPrice, currentItem) => {
+    return totalPrice + currentItem.totalPrice;
   }, 0);
 });
 
@@ -21,7 +23,7 @@ const returnSumm = () => {
     return;
   } else {
     personStore.person.coins += getAllSumm.value;
-    cartStore.cart = [];
+    orderStore.orders = [];
   }
 };
 </script>
@@ -30,7 +32,7 @@ const returnSumm = () => {
   <div class="orders">
     <div class="orders__card">
       <orderCard
-        v-for="cart in cartItem"
+        v-for="cart in orderItem"
         :cart="cart"
         :key="cart.id"
         v-if="cartStore.isOrderActive"

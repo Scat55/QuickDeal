@@ -6,10 +6,13 @@ import { useCartStore } from '@/entities/cart';
 import { usePersonStore } from '@/entities/person';
 import { Container } from '@/shared/container';
 import { Button } from '@/shared/button';
+import { useOrderStore } from '@/entities/order/model/store';
 
 const cartStore = useCartStore();
 const personStore = usePersonStore();
 const cartItem = computed(() => cartStore.cart);
+const orderStore = useOrderStore();
+
 const router = useRouter();
 
 const getAllSumm = computed(() => {
@@ -23,12 +26,15 @@ const placeAnOrder = () => {
   if (
     !personStore.isAuth ||
     personStore.person.coins === undefined ||
-    personStore.person.coins < getAllSumm.value
+    personStore.person.coins < getAllSumm.value ||
+    getAllSumm.value === 0
   ) {
     alert('Ошибка');
   } else {
     cartStore.isOrderActive = true;
     personStore.person.coins -= getAllSumm.value;
+    orderStore.orders = cartStore.cart;
+    cartStore.cart = [];
     router.push('/Orders');
   }
 };
