@@ -20,7 +20,7 @@ const getAllSumm = computed(() => {
   <Container>
     <div class="cart">
       <div class="cart__item">
-        <itemCart v-for="cart in cartItem" :cart="cart" />
+        <itemCart v-for="cart in cartItem" :cart="cart" :key="cart.id" />
       </div>
       <div class="cart__sum">
         <p class="cart__sum-info">Итого {{ getAllSumm }} &dollar;</p>
