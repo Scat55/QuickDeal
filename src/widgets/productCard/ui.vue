@@ -11,8 +11,9 @@ interface Props {
 }
 const { product } = defineProps<Props>();
 
-const getProductInCart = (product: Cart) => {
-  cartStore.getProductInCart(product);
+const getProductInCart = (product: Cart, quantity: number) => {
+  const cartProduct: Cart = { ...product, quantity };
+  cartStore.getProductInCart(cartProduct);
 };
 </script>
 
@@ -32,7 +33,7 @@ const getProductInCart = (product: Cart) => {
           <Button
             class="card__price-btn"
             type="button"
-            @click="getProductInCart(product)"
+            @click="getProductInCart(product, 1)"
           >
             <span class="IconContainer">
               <svg

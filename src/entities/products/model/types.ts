@@ -5,6 +5,8 @@ interface Product {
   description: string;
   category: Categories;
   images: string[];
+  quantity: number;
+  totalPrice: number;
 }
 
 interface Categories {

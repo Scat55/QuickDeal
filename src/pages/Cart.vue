@@ -14,7 +14,7 @@ const router = useRouter();
 
 const getAllSumm = computed(() => {
   return cartStore.cart.reduce((totalPrice, currentItem) => {
-    return totalPrice + currentItem.price;
+    return totalPrice + currentItem.price * currentItem.quantity;
   }, 0);
 });
 

@@ -27,6 +27,7 @@ const deleteItem = () => {
         <span class="itemCart__text-price"
           >Цена: {{ cart.price }} &dollar;</span
         >
+        <span>Кол-во: {{ cart.quantity }}</span>
         <div class="itemCart__text-btn">
           <Button type="button" class="btn" @click="deleteItem()"
             ><svg

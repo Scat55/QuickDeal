@@ -8,7 +8,21 @@ export const useCartStore = defineStore('cart', () => {
 
   // Добаление товара в корзину
   const getProductInCart = (product: Cart) => {
-    cart.value.push(product);
+    const existingProductIndex = cart.value.findIndex(
+      (item) => item.id === product.id,
+    );
+    if (existingProductIndex !== -1) {
+      // Если товар уже есть в корзине, увеличиваем его количество
+      cart.value[existingProductIndex].quantity += product.quantity;
+      // Увеличиваем общую цену корзины на основе цены товара и его количества
+      cart.value[existingProductIndex].totalPrice +=
+        product.price * product.quantity;
+    } else {
+      // Иначе добавляем новый товар в корзину
+      // Устанавливаем общую цену товара, учитывая его количество
+      product.totalPrice = product.price * product.quantity;
+      cart.value.push(product);
+    }
   };
   // Удаление товара из корзины
   const removeProductCard = (index: number) => {
