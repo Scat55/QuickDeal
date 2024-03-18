@@ -16,6 +16,7 @@ const links: Links[] = [
   { name: 'Главная', value: '/' },
   { name: 'Товары', value: 'Products' },
   { name: 'Корзина', value: 'Cart' },
+  { name: 'Мои заказы', value: 'Orders' },
 ];
 </script>
 
